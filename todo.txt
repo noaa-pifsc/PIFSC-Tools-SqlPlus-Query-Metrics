@@ -1,0 +1,5 @@
+X develop automation schedule (cron job) for executing the existing docker images (hourly between 7 AM to 7 PM each day)
+	X Implement as a Windows scheduled task
+
+
+X Implement TNSNames.ora for the docker container	

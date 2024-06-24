@@ -1,0 +1,6 @@
+services:
+  sqlplus-query-metrics:
+    build:
+      context: .
+    image: noaa/sqlplus-query-metrics:latest
+    container_name: sqlplus-query-metrics

@@ -1,0 +1,10 @@
+services:
+  sqlplus-query-metrics:
+    volumes:
+      - "sqlplus-query-metrics-data:/usr/src/data_exports"
+      - "sqlplus-query-metrics-logs:/usr/src/logs"
+    environment:
+      TZ: "Pacific/Honolulu"
+volumes:
+  sqlplus-query-metrics-data:
+  sqlplus-query-metrics-logs:
