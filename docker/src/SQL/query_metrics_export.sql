@@ -1,8 +1,10 @@
 --SET ECHO ON;
 SET SERVEROUTPUT ON;
 
+ALTER SESSION SET TIME_ZONE = 'Pacific/Honolulu';
+
 --retrieve the current timestamp
-SELECT to_char(SYSDATE, 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
+SELECT to_char(CAST(CURRENT_TIMESTAMP as date), 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
 
 SET ECHO OFF;
 
@@ -24,7 +26,7 @@ SET TERMOUT OFF;
 
 
 --retrieve the current timestamp
-SELECT to_char(SYSDATE, 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
+SELECT to_char(CAST(CURRENT_TIMESTAMP as date), 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
 SET TERMOUT ON;
 
 SPOOL ../logs/&V_LOG_FILE_NAME append;
@@ -38,7 +40,7 @@ SET TERMOUT OFF;
 --create the script to execute the specified query from the second parameter
 SPOOL ./temp_export_query.sql;
 
-	PROMPT &2.;;
+	PROMPT &3.;;
 
 SPOOL OFF;
 
@@ -46,7 +48,7 @@ SPOOL OFF;
 --create the script to retrieve the total number of records returned by the specified query from the second parameter
 SPOOL ./temp_count_query.sql;
 
-	PROMPT SELECT COUNT(*) AS NUM_ROWS FROM (&2.);;
+	PROMPT SELECT COUNT(*) AS NUM_ROWS FROM (&3.);;
 
 SPOOL OFF;
 
@@ -54,7 +56,7 @@ SPOOL OFF;
 --create the script to explain the specified query from the second parameter
 SPOOL ./temp_explain_query.sql;
 
-	PROMPT EXPLAIN PLAN FOR &2.;;
+	PROMPT EXPLAIN PLAN FOR &3.;;
 
 SPOOL OFF;
 
@@ -68,7 +70,7 @@ COLUMN START_TIMESTAMP new_value V_START_TIMESTAMP
 COLUMN START_DATE_TIME new_value V_START_DATE_TIME
 
 --retrieve the current timestamp
-SELECT to_char(SYSDATE, 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
+SELECT to_char(CAST(CURRENT_TIMESTAMP as date), 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
 SET TERMOUT ON;
 
 --log that the count(*) query is being executed
@@ -82,7 +84,7 @@ SET TERMOUT OFF;
 START ./temp_count_query.sql;
 
 --retrieve the current timestamp
-SELECT to_char(SYSDATE, 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
+SELECT to_char(CAST(CURRENT_TIMESTAMP as date), 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
 SET TERMOUT ON;
 
 --log that the explain plan query is being executed
@@ -118,7 +120,7 @@ SET LONG 2000;
 
 
 --retrieve the current timestamp
-SELECT to_char(SYSDATE, 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
+SELECT to_char(CAST(CURRENT_TIMESTAMP as date), 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
 SET TERMOUT ON;
 
 --log that the SELECT query is being executed and the results are being saved
@@ -129,17 +131,17 @@ SPOOL OFF;
 SET TERMOUT OFF;
 
 --capture the timestamp before the query is sent
-SELECT to_char(CURRENT_TIMESTAMP, 'YYYYMMDD HH:MI:SS.FF3 AM') AS START_TIMESTAMP, to_char(SYSDATE, 'MM/DD/YYYY HH:MI:SS AM') AS START_DATE_TIME from dual;
+SELECT to_char(CURRENT_TIMESTAMP, 'YYYYMMDD HH:MI:SS.FF3 AM') AS START_TIMESTAMP, to_char(CAST(CURRENT_TIMESTAMP as date), 'MM/DD/YYYY HH:MI:SS AM') AS START_DATE_TIME from dual;
 
 --execute the export query
-spool ../data_exports/&1..csv
+spool ../data_exports/&2..csv
 START ./temp_export_query.sql
 spool off;
 
 
 --retrieve the current timestamp
 COLUMN END_TIMESTAMP new_value V_END_TIMESTAMP
-SELECT to_char(CURRENT_TIMESTAMP, 'YYYYMMDD HH:MI:SS.FF3 AM') AS END_TIMESTAMP, to_char(SYSDATE, 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
+SELECT to_char(CURRENT_TIMESTAMP, 'YYYYMMDD HH:MI:SS.FF3 AM') AS END_TIMESTAMP, to_char(CAST(CURRENT_TIMESTAMP as date), 'YYYYMMDD HH:MI:SS AM') AS CURRENT_DATE_TIME from dual;
 
 
 --calculate the total time between when the query was sent and the response was received
@@ -157,8 +159,8 @@ SPOOL OFF;
 
 
 --add an entry in the .csv file with associated metrics for the query that was just executed
-SPOOL ../data_exports/query-metrics.csv append;
-PROMPT "&V_DB_NAME.","&V_DB_LOCATION_NAME","&V_APP_LOCATION_NAME","&1.","&V_START_DATE_TIME.","&V_QUERY_COST.","&V_NUM_ROWS.","&2.","&V_ELAPSED_TIME_SEC.","[FILE_SIZE]";
+SPOOL ../data_exports/&V_CSV_OUTPUT_FILE_NAME. append;
+PROMPT "&V_DB_NAME.","&V_DB_LOCATION_NAME","&V_APP_LOCATION_NAME","&1.","&V_START_DATE_TIME.","&V_QUERY_COST.","&V_NUM_ROWS.","&3.","&V_ELAPSED_TIME_SEC.","[FILE_SIZE]";
 SPOOL OFF;
 
 --log that the entire script has finished executing

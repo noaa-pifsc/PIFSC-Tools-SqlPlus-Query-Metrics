@@ -3,3 +3,16 @@ X develop automation schedule (cron job) for executing the existing docker image
 
 
 X Implement TNSNames.ora for the docker container	
+
+
+X Specify V_DB_NAME in a configuration.sql file so the user doesn't have to change the calling script
+	They could also change the output file name so there doesn't need to separate calling scripts at all for the forked repositories
+
+X Change deployment scripts so they use variables instead (e.g. repository URL, deployment path, etc.)
+	X This way the configuration files change but the main scripts will be the same as the upstream repository)
+	
+	
+Elapsed time of the query
+	grant select any dictionary to LHP_INTL_BIO;
+	select SQL_TEXT, elapsed_time from v$sql where SQL_TEXT LIKE '%%';
+
