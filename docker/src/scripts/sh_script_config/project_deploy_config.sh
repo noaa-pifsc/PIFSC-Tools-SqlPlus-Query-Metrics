@@ -4,5 +4,4 @@
 project_path="[PROJECT PATH]"
 
 # project git URL value
-git_url="git@picgitlab.nmfs.local:centralized-data-tools/sqlplus-query-metrics.git"
-
+git_url="git@github.com:noaa-pifsc/PIFSC-Tools-SqlPlus-Query-Metrics.git"
