@@ -5,7 +5,7 @@ This project was developed to provide an automated method to capture performance
 
 ## Resources
 -   SQLPlus Query Metrics Version Control Information:
-    -   URL: git@picgitlab.nmfs.local:centralized-data-tools/sqlplus-query-metrics.git
+    -   URL: git@github.com:noaa-pifsc/PIFSC-Tools-SqlPlus-Query-Metrics.git
     -   Version: 1.2 (Git tag: sqlplus_query_metrics_v1.2)
 
 ## Scenarios
@@ -41,7 +41,7 @@ This project was developed to provide an automated method to capture performance
         -   \*\*Note: Do not commit the credentials for the given database instance/schema in the repository for security reasons
 -   ### Forked Repository Implementation
     -   \*Note: this repository can be forked for a specific database instance/schema to make it easier to build and deploy the container to capture metrics for a given database instance/schema.
-        -   [SQL*Plus Query Metrics - IBBS](https://picgitlab.nmfs.local/query-metrics/sqlplus-query-metrics-ibbs) is provided as an example of how to implement the forked database-specific repository
+        -   [SQL*Plus Query Metrics - IBBS](https://github.com/noaa-pifsc/PIFSC-Tools-IBBS-Web-App-Metrics) is provided as an example of how to implement the forked database-specific repository
     -   Update the SQLPlus configuration script [runtime_config.sql](./docker/src/SQL/sqlplus_config/runtime_config.sql) to specify the appropriate values:
         -   V_CSV_OUTPUT_FILE_NAME is the CSV output file name
         -   V_DB_NAME is the database name (captured in CSV output file)
