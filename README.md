@@ -1,5 +1,10 @@
 # SQLPlus Query Metrics
 
+## Notice
+- This repository has been archived and is no longer maintained.
+- The code is provided for historical reference and may contain unpatched or unknown vulnerabilities.
+- It should not be used in production systems.
+
 ## Overview
 This project was developed to provide an automated method to capture performance metrics for a suite of Oracle queries using a docker container to execute them with SQL\*Plus.  This project provides a method to capture query metrics in a variety of configurations for flexibility and allows a user to define multiple queries and define the SQL\*Plus connection string to determine which Oracle database instance to execute the queries on.  
 
